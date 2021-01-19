@@ -1,0 +1,48 @@
+### root types
+
+# define gueries
+type Query {
+  feed: [Link!]!
+}
+
+# define mutations
+type Mutation {
+  # create new link entry
+  post(url: String!, description: String!): Link!
+  # update existing link entry
+  put(id: Int!, url: String, description: String): Link!
+  # delete a link entry
+  delete(id: Int!): Link!
+  # create new user and return auth token
+  signup(name: String!, email: String!, password: String!): AuthPayload
+  # login existing user and return auth token
+  login(email: String!, password: String!): AuthPayload
+}
+
+# define mutation
+
+### define custom types
+
+# link entry
+type Link {
+  id: ID!
+  url: String!
+  description: String!
+  postedBy: User
+  postedById: Int
+}
+
+# user entry
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+  links: [Link!]!
+}
+
+# payload containing token to be returned upon sucessful signup / login
+type AuthPayload {
+  user: User
+  token: String
+}
